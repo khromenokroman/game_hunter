@@ -7,6 +7,9 @@
 #include <iostream>
 void hunter::background::Background::load_images(SDL_Renderer* renderer, std::filesystem::path const& path, SDL_Rect* rect) {
     std::unique_ptr<SDL_Surface, void (*)(SDL_Surface*)> surface_image{IMG_Load(path.c_str()), SDL_FreeSurface};
+    if (!surface_image) {
+        throw std::runtime_error("Error while load image " + path.string() + " -> " + std::string(SDL_GetError()));
+    }
     if (rect) {
         rect->w = surface_image->w;
         rect->h = surface_image->h;

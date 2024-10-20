@@ -11,6 +11,8 @@
 namespace hunter::game {
 struct Game {
     hunter::background::Background m_background;
+    SDL_Rect rect{0, 0, 0, 0};
+    SDL_Point mouse_position{0, 0};
     std::unique_ptr<SDL_Window, void (*)(SDL_Window *)> m_window;       // окно
     std::unique_ptr<SDL_Renderer, void (*)(SDL_Renderer *)> m_renderer; // рисовальщик
     bool m_is_running{true};
