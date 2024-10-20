@@ -10,13 +10,13 @@
 
 namespace hunter::game {
 struct Game {
-    hunter::background::Background m_background;
-    SDL_Rect rect{0, 0, 0, 0};
-    SDL_Point mouse_position{0, 0};
+    hunter::background::Background m_background;                        // сервис загрузка картинок
+    SDL_Rect m_surface_aim{0, 0, 0, 0};                                 // полигон для прицела
+    SDL_Rect m_surface_aim_dst{0, 0, 0, 0};                             // полигон где будет размещаться прицел
     std::unique_ptr<SDL_Window, void (*)(SDL_Window *)> m_window;       // окно
     std::unique_ptr<SDL_Renderer, void (*)(SDL_Renderer *)> m_renderer; // рисовальщик
-    bool m_is_running{true};
-    hunter::init::Init m_initialization;
+    bool m_is_running{true};                                            // флаг работы главного цикла игры
+    hunter::init::Init m_initialization;                                // сервис инициализация системы
 
     Game();
     void run();
