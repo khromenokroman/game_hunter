@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 3.28)
+project(hunter)
+find_package(OpenGL)
+find_package(SDL2 REQUIRED)
+find_package(SDL2_ttf REQUIRED)
+find_package(SDL2_image REQUIRED)
+find_package(SDL2_mixer REQUIRED)
+set(CMAKE_CXX_STANDARD 17)
+
+add_executable(${PROJECT_NAME} main.cpp src/background.cpp src/game.cpp src/init.cpp)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE SDL2 SDL2_ttf SDL2_image SDL2_mixer)
