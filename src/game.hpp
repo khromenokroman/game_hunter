@@ -3,13 +3,16 @@
 //
 #pragma once
 #include <iostream>
+#include <list>
 
 #include "background.hpp"
 #include "constants.hpp"
 #include "init.hpp"
+#include <SDL2/SDL_mixer.h>
 
 namespace hunter::game {
 struct Game {
+    std::list<SDL_Rect> npcs;
     hunter::background::Background m_background;                        // сервис загрузка картинок
     SDL_Rect m_surface_aim{0, 0, 0, 0};                                 // полигон для прицела
     SDL_Rect m_surface_aim_dst{0, 0, 0, 0};                             // полигон где будет размещаться прицел
