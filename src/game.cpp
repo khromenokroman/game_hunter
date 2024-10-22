@@ -104,7 +104,6 @@ void hunter::game::Game::render_window_game() {
 }
 void hunter::game::Game::check_good_shot() {
     if(!m_state_mouse){
-        std::cout << "shot" << "\n";
         int mouse_x{}, mouse_y{};
         SDL_GetMouseState(&mouse_x, &mouse_y);
         SDL_Point mouse_pos{mouse_x, mouse_y};
