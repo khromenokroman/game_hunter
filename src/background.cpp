@@ -19,10 +19,11 @@ void hunter::background::Background::load_images(SDL_Renderer* renderer, std::fi
     std::cout << "Add background file: " << path.filename() << std::endl;
 }
 void hunter::background::Background::load_music(std::filesystem::path const& path) {
-    std::unique_ptr<Mix_Chunk, void (*)(Mix_Chunk*)> gun_shot{Mix_LoadWAV("../sounds/gun_shot.mp3"), Mix_FreeChunk};
+    std::unique_ptr<Mix_Chunk, void (*)(Mix_Chunk*)> gun_shot{Mix_LoadWAV(path.c_str()), Mix_FreeChunk};
     if (!gun_shot) {
         throw std::runtime_error("Error while loading music " + path.string() + " -> " + Mix_GetError());
     }
     musics.emplace_back(std::move(gun_shot));
+    std::cout << "Load sound file: " << path.filename() << std::endl;
 }
 hunter::background::Background::Background() { Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048); }
