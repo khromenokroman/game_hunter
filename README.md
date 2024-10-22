@@ -6,4 +6,5 @@ apt install libsdl2-image-dev fonts-freefont-ttf libsdl2-ttf-dev libsdl2-dev lib
 mkdir "build" && cd build
 cmake ..
 cmake --build .
+./hunter
 ````

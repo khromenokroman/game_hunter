@@ -13,8 +13,7 @@
 
 namespace hunter::game {
 struct Game {
-    SDL_Point m_point_mouse{-1, -1};
-    std::list<SDL_Rect> npcs;
+    std::list<SDL_Rect> m_npcs;                                         // боты
     hunter::background::Background m_background;                        // сервис загрузка картинок
     SDL_Rect m_surface_aim{0, 0, 0, 0};                                 // полигон для прицела
     SDL_Rect m_surface_aim_dst{0, 0, 0, 0};                             // полигон где будет размещаться прицел

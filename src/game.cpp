@@ -17,7 +17,7 @@ hunter::game::Game::Game()
     m_background.load_music("../sounds/gun_shot_manual_reload.mp3");
 }
 void hunter::game::Game::run() {
-    std::cout << "Start main loop game" << std::endl;
+    std::cout << "Start game" << std::endl;
 
     m_surface_aim_dst = {100, 200, m_surface_aim.w, m_surface_aim.h};
     m_surface_target = {300, 20, 550, 370};
@@ -35,6 +35,7 @@ void hunter::game::Game::run() {
 
     SDL_Event events;
     while (m_is_running) {
+
         get_os_event(events);
         check_good_shot();
 
@@ -57,6 +58,11 @@ void hunter::game::Game::run() {
         SDL_RenderClear(m_renderer.get());
         render_window_game();
         SDL_RenderPresent(m_renderer.get());
+
+        if(m_npcs.empty()){
+            std::cout << "Game over!" << std::endl;
+            break;
+        }
     }
 }
 void hunter::game::Game::get_os_event(SDL_Event& event) {
@@ -78,7 +84,7 @@ void hunter::game::Game::get_os_event(SDL_Event& event) {
 }
 void hunter::game::Game::move_npc() {
     SDL_Delay(1000 / hunter::CONSTANTS::FPS);
-    for (auto& npc : npcs) {
+    for (auto& npc : m_npcs) {
         if (npc.x >= hunter::CONSTANTS::START_WINDOW_WIDTH) {
             npc.x = -100;
             npc.y = rand() % 700;
@@ -88,12 +94,12 @@ void hunter::game::Game::move_npc() {
 }
 void hunter::game::Game::create_npc() {
     for (auto i = 0; i < 10; i++) {
-        npcs.emplace_back(
+        m_npcs.emplace_back(
             SDL_Rect{rand() % hunter::CONSTANTS::START_WINDOW_WIDTH - 100, rand() % hunter::CONSTANTS::START_WINDOW_HEIGHT - 100, 80, 50});
     }
 }
 void hunter::game::Game::render_npc() {
-    for (auto const& npc : npcs) {
+    for (auto const& npc : m_npcs) {
         SDL_RenderCopy(m_renderer.get(), m_background.textures[2].get(), &m_surface_target, &npc);
     }
 }
@@ -108,9 +114,9 @@ void hunter::game::Game::check_good_shot() {
         SDL_GetMouseState(&mouse_x, &mouse_y);
         SDL_Point mouse_pos{mouse_x, mouse_y};
         Mix_PlayChannel(-1, m_background.musics[0].get(), 0);
-        for (auto itr = npcs.begin(); itr != npcs.end();) {
+        for (auto itr = m_npcs.begin(); itr != m_npcs.end();) {
             if (SDL_PointInRect(&mouse_pos, &(*itr))) {
-                itr = npcs.erase(itr);
+                itr = m_npcs.erase(itr);
             } else {
                 itr++;
             }
